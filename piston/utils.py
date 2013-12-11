@@ -78,8 +78,14 @@ class rc_factory(object):
                     self._base_content_is_iter = not is_string
                 else:
                     self._is_string = is_string
+            try:
+                content = property(HttpResponse._get_content, _set_content)
+            except:
+                # django >= 1.5
+                @HttpResponse.content.setter
+                def content(self, content):
+                    self._set_content(content)
 
-            content = property(HttpResponse._get_content, _set_content)
 
         return HttpResponseWrapper(r, content_type='text/plain', status=c)
 
