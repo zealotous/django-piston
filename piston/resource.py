@@ -1,4 +1,4 @@
-import sys, inspect
+import sys
 
 import django
 from django.http import (HttpResponse, Http404, HttpResponseNotAllowed,
@@ -8,7 +8,6 @@ from django.views.decorators.vary import vary_on_headers
 from django.conf import settings
 from django.core.mail import send_mail, EmailMessage
 from django.db.models.query import QuerySet
-from django.http import Http404
 
 try:
     import mimeparse
@@ -227,7 +226,7 @@ class Resource(object):
             else: stream = srl.render(request)
 
             if not isinstance(stream, HttpResponse):
-                resp = HttpResponse(stream, mimetype=ct, status=status_code)
+                resp = HttpResponse(stream, content_type=ct, status=status_code)
             else:
                 resp = stream
 
