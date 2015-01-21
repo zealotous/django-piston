@@ -14,7 +14,7 @@ from decorator import decorator
 
 from datetime import datetime, timedelta
 
-__version__ = '0.2.3rc1'
+__version__ = '0.2.3rc2#django1.7'
 
 def get_version():
     return __version__
