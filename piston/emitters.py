@@ -1,7 +1,7 @@
 from __future__ import generators
 
 import decimal, re, inspect
-import copy
+from itertools import chain
 
 try:
     # yaml isn't standard with python.  It shouldn't be required if it
@@ -192,8 +192,9 @@ class Emitter(object):
                         get_absolute_uri = True
 
                     if not get_fields:
-                        get_fields = set([ f.attname.replace("_id", "", 1)
-                            for f in data._meta.fields + data._meta.virtual_fields])
+                        get_fields = set([f.attname.replace("_id", "", 1)
+                                          for f in chain(data._meta.fields,
+                                                         data._meta.virtual_fields)])
 
                     if hasattr(mapped, 'extra_fields'):
                         get_fields.update(mapped.extra_fields)
